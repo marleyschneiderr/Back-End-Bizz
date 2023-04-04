@@ -14,30 +14,32 @@ router.get("/", (req, res) => {
       },
     ],
   })
-  .then((categoryData) => {
-    res.json({ msg: "HTTP GET to /api/categories successful", categoryData });
-  })
-  .catch((err) => {
-    console.log(err);
-    res.status(500).json(err);
-  });
+    .then((categoryData) => {
+      res.json({ msg: "HTTP GET to /api/categories successful", categoryData });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.get("/:id", (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
-  const categoryId = req.params.id;
-  Category.findByPk({
-    categoryId,
+  Category.findByPk(req.params.id, {
     include: [
       {
         model: Product,
-        attributes: ["id", "product_name", "price", "category_id"],
       },
     ],
-  }).then((categoryData) => {
-    res.json({ msg: "HTTP GET to /api/categories successful", categoryData });
-  });
+  })
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 
