@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json(err);
+      res.status(400).json(err);
     });
 });
 
@@ -46,7 +46,7 @@ router.get("/:id", async (req, res) => {
     res.json(data);
   } catch (err) {
     console.log(err);
-    res.status(500).json(err);
+    res.status(400).json(err);
   }
 });
 
