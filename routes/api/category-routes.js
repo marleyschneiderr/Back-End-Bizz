@@ -3,21 +3,18 @@ const { Category, Product } = require("../../models");
 
 // The `/api/categories` endpoint
 
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
   // find all categories
   // be sure to include its associated Products
   Category.findAll({
-    include: [
-      {
+      include: [{
         model: Product,
-        attributes: ["id", "product_name", "stock", "price", "category_id"],
-      },
-    ],
-  })
-    .then((categoryData) => {
-      res.json({ msg: "HTTP GET to /api/categories successful", categoryData });
+      }]
     })
-    .catch((err) => {
+    .then(data => {
+      res.json(data);
+    })
+    .catch(err => {
       console.log(err);
       res.status(400).json(err);
     });
